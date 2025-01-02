@@ -20,7 +20,7 @@ const Target = (props: GroupProps) => {
         }
     }, { dependencies: [targetRef.current] });
 
-    return <primitive ref={targetRef} object={scene} {...props} />;
+    return <primitive ref={targetRef} object={scene} scale={1.5} {...props} />;
 };
 
 useGLTF.preload('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/target-stand/model.gltf');

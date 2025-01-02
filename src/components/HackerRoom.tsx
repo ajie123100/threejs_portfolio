@@ -8,6 +8,7 @@ import { useGLTF, useTexture } from '@react-three/drei';
 import { GroupProps } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
 import * as THREE from 'three'; // 导入 THREE 命名空间
+import { useEffect } from 'react';
 
 type GLTFResult = GLTF & {
     nodes: {
@@ -51,6 +52,12 @@ const HackerRoom = (props: GroupProps) => {
 
     const monitortxt = useTexture('textures/desk/monitor.png');
     const screenTxt = useTexture('textures/desk/screen.png');
+
+    useEffect(() => {
+        // 预加载纹理
+        monitortxt.needsUpdate = true;
+        screenTxt.needsUpdate = true;
+    }, [monitortxt, screenTxt]);
 
     return (
         <group {...props} dispose={null}>
