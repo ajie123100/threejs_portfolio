@@ -7,12 +7,28 @@ const About = () => {
     const [hasCopied, setHasCopied] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(' 2946478276@qq.com');
-        setHasCopied(true);
+        // 检查浏览器是否支持 Clipboard API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText('2946478276@qq.com')
+                .then(() => {
+                    // 复制成功
+                    setHasCopied(true);
 
-        setTimeout(() => {
-            setHasCopied(false);
-        }, 2000);
+                    // 2 秒后重置状态
+                    setTimeout(() => {
+                        setHasCopied(false);
+                    }, 2000);
+                })
+                .catch((err) => {
+                    // 复制失败
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动复制邮箱地址。');
+                });
+        } else {
+            // 浏览器不支持 Clipboard API
+            console.error('当前浏览器不支持剪贴板功能');
+            alert('当前浏览器不支持复制功能，请手动复制邮箱地址。');
+        }
     };
 
     return (
